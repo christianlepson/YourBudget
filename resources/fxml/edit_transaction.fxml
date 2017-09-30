@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      stylesheets="/css/main.css"
+      prefHeight="400.0" prefWidth="550.0">
+
+    <children>
+        <Label alignment="CENTER" prefHeight="17.0" prefWidth="609.0" styleClass="title" text="Edit Transaction"/>
+        <Label alignment="CENTER" prefHeight="17.0" prefWidth="628.0" text="Enter the updated information below.">
+            <padding>
+                <Insets bottom="15.0" top="15.0"/>
+            </padding>
+        </Label>
+        <VBox alignment="CENTER" prefWidth="100.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="120.0" text="Description:"/>
+                        <TextField prefHeight="27.0" prefWidth="243.0"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="65.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label prefWidth="120.0" text="Category:">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Label>
+                        <ChoiceBox prefWidth="150.0"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="65.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="82.0" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label prefWidth="120.0" text="Account:">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Label>
+                        <ChoiceBox prefHeight="27.0" prefWidth="206.0"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="65.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label prefWidth="120.0" text="Total:">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="93.0">
+                            <children>
+                                <Label prefHeight="17.0" prefWidth="54.0" text="\$"/>
+                                <TextField prefHeight="27.0" prefWidth="256.0" promptText="00.00"/>
+                            </children>
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets top="30.0"/>
+                    </padding>
+                    <VBox.margin>
+                        <Insets left="65.0"/>
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="185.0">
+            <children>
+                <Button mnemonicParsing="false" text="Back"/>
+                <Button mnemonicParsing="false" text="Add Expense"/>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets top="20.0"/>
+    </padding>
+
+</VBox>
