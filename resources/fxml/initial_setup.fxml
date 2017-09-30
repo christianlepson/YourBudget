@@ -11,7 +11,7 @@
 <VBox prefHeight="400.0" prefWidth="550.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
-        <Label alignment="CENTER" prefHeight="17.0" prefWidth="609.0" styleClass="title" text="Initial Account Setup" />
+        <Label alignment="CENTER" prefHeight="17.0" prefWidth="609.0" styleClass="title" text="Let's Get Started." />
         <Label alignment="CENTER" prefHeight="17.0" prefWidth="628.0" text="To get started, add a bank account to manage.">
             <padding>
                 <Insets bottom="15.0" top="15.0" />

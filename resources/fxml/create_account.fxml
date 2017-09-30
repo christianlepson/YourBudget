@@ -31,7 +31,7 @@
                         <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="296.0" translateY="-5.0">
                             <children>
                                 <TextField fx:id="username" prefHeight="27.0" prefWidth="300.0" />
-                                <Label styleClass="info" text="Username must be at least 7 characters." />
+                                <Label styleClass="info" text="Username must be 7 to 30 characters long." />
                             </children>
                         </VBox>
                     </children>
@@ -45,7 +45,7 @@
                         <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="296.0" translateY="-5.0">
                             <children>
                                 <PasswordField fx:id="password" prefHeight="27.0" prefWidth="300.0" />
-                                <Label styleClass="info" text="Password must be at least 10 characters." />
+                                <Label styleClass="info" text="Password must be 10 to 120 characters long." />
                             </children>
                         </VBox>
                     </children>
@@ -56,7 +56,7 @@
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="144.0" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label prefWidth="120.0" text="Retype Password:" />
-                  <PasswordField fx:id="password1" prefHeight="27.0" prefWidth="300.0" />
+                  <PasswordField fx:id="confirm" prefHeight="27.0" prefWidth="300.0" />
                </children>
                <VBox.margin>
                   <Insets left="65.0" />
