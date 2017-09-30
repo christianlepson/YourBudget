@@ -40,30 +40,4 @@ public class CreateAccountController {
         appStage.show();
     }
 
-    //TODO(2) Complete the isNameValid method
-    // Method should ensure that the name contains no special characters, numbers, or spaces.
-    // If the name is valid (contains no special characters, etc.) return true, otherwise
-    // return false
-    private boolean isNameValid(String name)
-    {
-
-        if(name.matches("[a-zA-Z]+$"))
-            return true;
-        else
-        return false;
-    }
-
-    //TODO(3) Complete the isUsernameValid method
-    // Method should ensure that the username contains only letters and numbers
-    // and is 15 characters or less. If the username is not valid, return false
-    private boolean isUsernameValid(String username)
-    {
-        if(username.matches("[a-zA-Z]+$") && username.length() <= 15)
-            return true;
-
-        else
-            return false;
-
-    }
-
 }
