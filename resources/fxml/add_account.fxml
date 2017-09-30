@@ -11,8 +11,8 @@
 <VBox stylesheets="/css/main.css" prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
-        <Label alignment="CENTER" prefHeight="17.0" prefWidth="609.0" styleClass="title" text="Initial Account Setup" />
-        <Label alignment="CENTER" prefHeight="17.0" prefWidth="628.0" text="To get started, add a bank account to manage.">
+        <Label alignment="CENTER" prefHeight="17.0" prefWidth="609.0" styleClass="title" text="Add an Account" />
+        <Label alignment="CENTER" prefHeight="17.0" prefWidth="628.0" text="Enter the new account information below.">
             <padding>
                 <Insets bottom="15.0" top="15.0" />
             </padding>
@@ -29,17 +29,17 @@
                             </children>
                         </VBox>
                     </children>
-                    <VBox.margin>
-                        <Insets left="65.0" />
-                    </VBox.margin>
+               <VBox.margin>
+                  <Insets left="65.0" />
+               </VBox.margin>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="75.0">
                     <children>
                         <Label text="Account Type:">
-                            <padding>
-                                <Insets left="65.0" />
-                            </padding></Label>
-                        <ChoiceBox prefWidth="150.0" />
+                     <padding>
+                        <Insets left="65.0" />
+                     </padding></Label>
+                  <ChoiceBox prefWidth="150.0" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="0.0" prefWidth="600.0" spacing="60.0">
@@ -67,7 +67,7 @@
         </VBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="185.0">
             <children>
-                <Button mnemonicParsing="false" text="Do this Later" />
+                <Button mnemonicParsing="false" text="Back" />
                 <Button mnemonicParsing="false" text="Add Bank Account" />
             </children>
         </HBox>
