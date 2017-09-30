@@ -1,6 +1,6 @@
 .label {
     -fx-text-fill: #4A4A4A;
-    -fx-font-size: 18px;
+    -fx-font-size: 14px;
 }
 
 .parent {
@@ -37,4 +37,12 @@
 
 .button:pressed {
     -fx-background-color: #e0eafc;
+}
+
+.checking-label {
+    -fx-text-fill: #1e2692;
+}
+
+.savings-label {
+    -fx-text-fill: #1e9241;
 }
