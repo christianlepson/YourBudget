@@ -25,7 +25,7 @@ public class WelcomeController {
     }
 
     @FXML private void showCreateUserScene(ActionEvent event) throws IOException {
-        Parent createUserParent = FXMLLoader.load(getClass().getResource("/fxml/create_account.fxml"));
+        Parent createUserParent = FXMLLoader.load(getClass().getResource("/fxml/create_user.fxml"));
         Scene createUserScene = new Scene(createUserParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(createUserScene);

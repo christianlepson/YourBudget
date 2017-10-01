@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * Created by Christian on 9/22/17.
  */
-public class CreateAccountController {
+public class CreateUserController {
     @FXML private TextField firstName;
     @FXML private TextField username;
     @FXML private PasswordField password;
