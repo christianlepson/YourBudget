@@ -44,13 +44,18 @@ public class CreateAccountController {
 
                     if (pass.equals(passConfirm)) {
 
-                        UserCreator creator = new UserCreator();
-                        creator.createUser(formatFirstName(name), user, pass);
-
                         UserRetriever retriever = new UserRetriever();
-                        mUser = retriever.retrieveByUsername(user);
 
-                        showInitialSetupScene(event);
+                        // If username doesn't already exist, add user
+                        if (retriever.retrieveByUsername(user) == null) {
+                            UserCreator creator = new UserCreator();
+                            creator.createUser(name, user, pass);
+                            mUser = retriever.retrieveByUsername(user);
+                            showInitialSetupScene(event);
+                        } else {
+                            ErrorDialog.display("That username is unavailable." +
+                                    "\nPlease choose a different username.");
+                        }
 
 
                     } else {
@@ -110,10 +115,6 @@ public class CreateAccountController {
             System.out.println("Unable to start Initial Setup scene from Create Account.");
             e.printStackTrace();
         }
-    }
-
-    private String formatFirstName(String firstName) {
-        return firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
     }
 
 }

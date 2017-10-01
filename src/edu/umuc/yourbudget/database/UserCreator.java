@@ -26,8 +26,8 @@ public class UserCreator {
         boolean isSuccessful = false;
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,firstName);
-            preparedStatement.setString(2, username);
+            preparedStatement.setString(1,formatFirstName(firstName));
+            preparedStatement.setString(2, username.toLowerCase());
             preparedStatement.setString(3, password);
             preparedStatement.execute();
             isSuccessful = true;
@@ -44,6 +44,10 @@ public class UserCreator {
             }
             return isSuccessful;
         }
+    }
+
+    private String formatFirstName(String firstName) {
+        return firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
     }
 
 }

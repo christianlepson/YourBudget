@@ -25,10 +25,10 @@ public class LoginController {
 
     @FXML
     private void login(ActionEvent event) {
-        UserRetriever authenticator = new UserRetriever();
+        UserRetriever retriever = new UserRetriever();
         String usernameText = username.getText();
         String passwordText = password.getText();
-        User result = authenticator.retrieveByCredentials(usernameText, passwordText);
+        User result = retriever.retrieveByCredentials(usernameText, passwordText);
         if (result != null) {
             System.out.println(result.getFirstName());
         } else {
