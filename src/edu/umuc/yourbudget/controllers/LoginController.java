@@ -1,12 +1,14 @@
 package edu.umuc.yourbudget.controllers;
 
-import edu.umuc.yourbudget.model.LoginAuthenticator;
+import edu.umuc.yourbudget.database.UserRetriever;
+import edu.umuc.yourbudget.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -19,17 +21,18 @@ import java.io.IOException;
 public class LoginController {
     @FXML private TextField username;
     @FXML private PasswordField password;
+    @FXML private Label error;
 
     @FXML
     private void login(ActionEvent event) {
-        LoginAuthenticator authenticator = new LoginAuthenticator();
+        UserRetriever authenticator = new UserRetriever();
         String usernameText = username.getText();
         String passwordText = password.getText();
-        boolean isValid = authenticator.isLoginValid(usernameText, passwordText);
-        if (isValid) {
-            System.out.println("Login is valid!");
+        User result = authenticator.retrieveByCredentials(usernameText, passwordText);
+        if (result != null) {
+            System.out.println(result.getFirstName());
         } else {
-            System.out.println("Login is invalid!");
+            error.setOpacity(1.0);
         }
     }
 

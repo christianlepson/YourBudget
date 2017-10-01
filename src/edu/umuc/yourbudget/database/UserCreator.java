@@ -1,4 +1,4 @@
-package edu.umuc.yourbudget.model;
+package edu.umuc.yourbudget.database;
 
 import edu.umuc.yourbudget.database.SQLiteConnection;
 
@@ -20,14 +20,6 @@ public class UserCreator {
         }
     }
 
-    /**
-     * Creates a new user in the 'user' table of the database. Returns true if
-     * successful, false if unsuccessful.
-     * @param firstName
-     * @param username
-     * @param password
-     * @return true if successful, false if unsuccessful
-     */
     public boolean createUser(String firstName, String username, String password) {
         PreparedStatement preparedStatement = null;
         String sql = "INSERT INTO user(first_name, username, password) VALUES(?, ?, ?)";
@@ -38,7 +30,6 @@ public class UserCreator {
             preparedStatement.setString(2, username);
             preparedStatement.setString(3, password);
             preparedStatement.execute();
-            System.out.println("User created successfully.");
             isSuccessful = true;
         } catch (Exception e) {
             System.out.println("Unable to insert new user.");

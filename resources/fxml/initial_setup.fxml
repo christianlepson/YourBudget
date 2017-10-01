@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="550.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="550.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.umuc.yourbudget.controllers.InitialSetupController">
 
     <children>
         <Label alignment="CENTER" prefHeight="17.0" prefWidth="609.0" styleClass="title" text="Let's Get Started." />
@@ -24,7 +24,7 @@
                         <Label prefWidth="120.0" text="Account Name:" />
                         <VBox alignment="BOTTOM_CENTER" prefHeight="72.0" prefWidth="254.0" translateY="-5.0">
                             <children>
-                                <TextField prefHeight="27.0" prefWidth="243.0" />
+                                <TextField fx:id="accountName" prefHeight="27.0" prefWidth="243.0" />
                                 <Label styleClass="info" text="ex. &quot;Capital One Savings&quot;" />
                             </children>
                         </VBox>
@@ -36,7 +36,7 @@
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                     <children>
                         <Label prefWidth="120.0" text="Account Type:" />
-                        <ChoiceBox prefWidth="150.0" />
+                        <ChoiceBox fx:id="accountType" prefWidth="150.0" />
                     </children>
                <VBox.margin>
                   <Insets left="65.0" />
@@ -49,10 +49,10 @@
                                 <Insets />
                             </HBox.margin>
                         </Label>
-                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="93.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="124.0">
                             <children>
                                 <Label prefHeight="17.0" prefWidth="54.0" text="\$" />
-                                <TextField prefHeight="27.0" prefWidth="256.0" promptText="00.00" />
+                                <TextField fx:id="accountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="216.0" promptText="999.99" />
                             </children>
                             <padding>
                                 <Insets right="10.0" />
@@ -70,8 +70,8 @@
         </VBox>
         <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="185.0">
             <children>
-                <Button mnemonicParsing="false" text="Do this Later" />
-                <Button mnemonicParsing="false" text="Add Bank Account" />
+                <Button mnemonicParsing="false" onAction="#abortAccountCreation" text="Do this Later" />
+                <Button mnemonicParsing="false" onAction="#submitAccount" text="Add Bank Account" />
             </children>
         </HBox>
     </children>

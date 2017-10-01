@@ -1,8 +1,10 @@
 package edu.umuc.yourbudget.controllers;
 
+import edu.umuc.yourbudget.database.UserCreator;
+import edu.umuc.yourbudget.database.UserRetriever;
 import edu.umuc.yourbudget.model.ErrorDialog;
 import edu.umuc.yourbudget.model.InputValidator;
-import edu.umuc.yourbudget.model.UserCreator;
+import edu.umuc.yourbudget.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,9 +26,10 @@ public class CreateAccountController {
     @FXML private PasswordField password;
     @FXML private PasswordField confirm;
 
+    private User mUser;
+
     @FXML
     private void createAccount(ActionEvent event) {
-        // Code for Phase 2
         String name = firstName.getText();
         String user = username.getText();
         String pass = password.getText();
@@ -41,8 +44,12 @@ public class CreateAccountController {
 
                     if (pass.equals(passConfirm)) {
 
-//                        UserCreator creator = new UserCreator();
-//                        creator.createUser(name, user, pass);
+                        UserCreator creator = new UserCreator();
+                        creator.createUser(formatFirstName(name), user, pass);
+
+                        UserRetriever retriever = new UserRetriever();
+                        mUser = retriever.retrieveByUsername(user);
+
                         showInitialSetupScene(event);
 
 
@@ -88,8 +95,14 @@ public class CreateAccountController {
     private void showInitialSetupScene(ActionEvent event) {
         Parent setupParent = null;
         try {
-            setupParent = FXMLLoader.load(getClass().getResource("/fxml/initial_setup.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/initial_setup.fxml"));
+            setupParent = loader.load();
             Scene setupScene = new Scene(setupParent);
+
+            InitialSetupController controller = loader.getController();
+            controller.initialize(mUser);
+
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(setupScene);
             appStage.show();
@@ -97,6 +110,10 @@ public class CreateAccountController {
             System.out.println("Unable to start Initial Setup scene from Create Account.");
             e.printStackTrace();
         }
+    }
+
+    private String formatFirstName(String firstName) {
+        return firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
     }
 
 }

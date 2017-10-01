@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="920.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="edu.umuc.yourbudget.controllers.HomeController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="920.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox>
          <children>
-            <Label styleClass="title" text="Logged in as Emily." />
+            <Label fx:id="loginStatusLabel" styleClass="title" text="Logged in as Emily." />
             <Region opacity="0.0" HBox.hgrow="ALWAYS" />
-            <Button alignment="CENTER" mnemonicParsing="false" text="Sign Out" />
+            <Button onAction="#signOut" alignment="CENTER" mnemonicParsing="false" text="Sign Out" />
          </children>
          <padding>
             <Insets left="20.0" right="20.0" />
@@ -26,7 +26,7 @@
       <VBox spacing="5.0">
          <children>
             <Label styleClass="checking-label" text="Current Checking Balance: $1,500.00" />
-            <Label styleClass="savings-label" text="Current Savings Balance: $909.00" />
+            <Label styleClass="savings-label" text="Current Savings Balance: $0.00" />
          </children>
          <padding>
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />

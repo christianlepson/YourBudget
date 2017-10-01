@@ -36,6 +36,7 @@
             </HBox>
          </children>
       </VBox>
+      <Label styleClass="error" fx:id="error" opacity="0.0" text="Your username or password was invalid. Please try again." />
         <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="185.0">
             <children>
                 <Button mnemonicParsing="false" onAction="#showWelcomeScene" text="Back to Home" />

@@ -18,7 +18,7 @@ public class ErrorDialog {
 
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Alert");
+        window.setTitle("Oops");
         window.setWidth(350);
         window.setHeight(250);
 
