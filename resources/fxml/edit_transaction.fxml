@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="550.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="edu.umuc.yourbudget.controllers.EditTransactionController" prefHeight="400.0" prefWidth="550.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <Label alignment="CENTER" prefHeight="17.0" prefWidth="609.0" styleClass="title" text="Edit Transaction" />
@@ -99,7 +99,7 @@
         </VBox>
         <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="185.0">
             <children>
-                <Button mnemonicParsing="false" text="Back" />
+                <Button onAction="#closeWindow" mnemonicParsing="false" text="Cancel" />
                 <Button mnemonicParsing="false" text="Save" />
             </children>
         </HBox>

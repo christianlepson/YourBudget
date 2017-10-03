@@ -42,10 +42,10 @@
       </ScrollPane>
       <HBox alignment="CENTER" prefHeight="100.0" spacing="80.0">
          <children>
-            <Button mnemonicParsing="false" text="Add an Expense" />
-            <Button mnemonicParsing="false" text="Add Income" />
-            <Button mnemonicParsing="false" text="Add a Bank Account" />
-            <Button mnemonicParsing="false" text="View Spending Report" />
+            <Button onAction="#showAddExpenseScene" mnemonicParsing="false" text="Add an Expense" />
+            <Button onAction="#showAddIncomeScene" mnemonicParsing="false" text="Add Income" />
+            <Button onAction="#showAddBankAccountScene" mnemonicParsing="false" text="Add a Bank Account" />
+            <Button onAction="#showReportScene" mnemonicParsing="false" text="View Spending Report" />
          </children>
       </HBox>
    </children>

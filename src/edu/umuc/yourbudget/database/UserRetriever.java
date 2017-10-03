@@ -22,14 +22,6 @@ public class UserRetriever {
         }
     }
 
-    public boolean isDbConnected() {
-        try {
-            return !connection.isClosed();
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
     public User retrieveByUsername(String user) {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -42,7 +34,7 @@ public class UserRetriever {
             if (resultSet.next()) {
                 String firstName = resultSet.getString("first_name");
                 String username = resultSet.getString("username");
-                String id = resultSet.getString("id");
+                int id = resultSet.getInt("id");
                 User usr = new User(firstName, username, id);
                 return usr;
             } else {
@@ -83,7 +75,7 @@ public class UserRetriever {
             if (resultSet.next()) {
                 String firstName = resultSet.getString("first_name");
                 String username = resultSet.getString("username");
-                String id = resultSet.getString("id");
+                int id = resultSet.getInt("id");
                 User usr = new User(firstName, username, id);
                 return usr;
             } else {

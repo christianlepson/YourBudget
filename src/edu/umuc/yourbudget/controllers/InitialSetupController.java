@@ -2,6 +2,7 @@ package edu.umuc.yourbudget.controllers;
 
 import edu.umuc.yourbudget.database.BankAccountCreator;
 import edu.umuc.yourbudget.model.ErrorDialog;
+import edu.umuc.yourbudget.model.InputValidator;
 import edu.umuc.yourbudget.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,10 +41,10 @@ public class InitialSetupController {
     @FXML
     private void submitAccount(ActionEvent event) {
 
-        if (isBalanceValid(accountBalance.getText())) {
+        if (InputValidator.isCurrencyValid(accountBalance.getText())) {
             BankAccountCreator creator = new BankAccountCreator();
             creator.createAccount(
-                    Integer.parseInt(user.getId()),
+                    user.getId(),
                     accountName.getText(),
                     getAccountType(accountType),
                     getFormattedBalance(accountBalance.getText())
@@ -73,16 +74,6 @@ public class InitialSetupController {
         } catch (IOException e) {
             System.out.println("Unable to start Home scene from Initial Setup.");
             e.printStackTrace();
-        }
-    }
-
-    private boolean isBalanceValid(String balanceString) {
-        try {
-            balanceString = balanceString.replaceAll(",", "");
-            Double.parseDouble(balanceString);
-            return true;
-        } catch (Exception e) {
-            return false;
         }
     }
 

@@ -7,9 +7,9 @@ public class User {
 
     private String firstName;
     private String username;
-    private String id;
+    private int id;
 
-    public User(String firstName, String username, String id) {
+    public User(String firstName, String username, int id) {
         this.firstName = firstName;
         this.username = username;
         this.id = id;
@@ -31,11 +31,11 @@ public class User {
         this.username = username;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
