@@ -24,7 +24,7 @@
                         <Label prefWidth="120.0" text="Account Name:" />
                         <VBox alignment="BOTTOM_CENTER" prefHeight="72.0" prefWidth="254.0" translateY="-5.0">
                             <children>
-                                <TextField prefHeight="27.0" prefWidth="243.0" />
+                                <TextField fx:id="accountName" prefHeight="27.0" prefWidth="243.0" />
                                 <Label styleClass="info" text="ex. &quot;Capital One Savings&quot;" />
                             </children>
                         </VBox>
@@ -36,7 +36,7 @@
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                     <children>
                         <Label prefWidth="120.0" text="Account Type:" />
-                  <ChoiceBox prefWidth="150.0" />
+                  <ChoiceBox fx:id="accountType" prefWidth="150.0" />
                     </children>
                <VBox.margin>
                   <Insets left="65.0" />
@@ -52,7 +52,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="124.0">
                             <children>
                                 <Label prefHeight="17.0" prefWidth="54.0" text="\$" />
-                                <TextField alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="256.0" promptText="999.99" />
+                                <TextField fx:id="accountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="256.0" promptText="999.99" />
                             </children>
                             <padding>
                                 <Insets right="10.0" />
@@ -74,7 +74,7 @@
         <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="185.0">
             <children>
                 <Button onAction="#closeWindow" mnemonicParsing="false" text="Cancel" />
-                <Button mnemonicParsing="false" text="Add Bank Account" />
+                <Button onAction="#submitAccount" mnemonicParsing="false" text="Add Bank Account" />
             </children>
         </HBox>
     </children>

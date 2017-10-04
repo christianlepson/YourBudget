@@ -25,7 +25,7 @@
                         <Label alignment="TOP_LEFT" prefHeight="54.0" prefWidth="120.0" text="Description:" />
                         <VBox alignment="CENTER" prefHeight="48.0" prefWidth="250.0" translateY="-5.0">
                             <children>
-                                <TextField prefHeight="27.0" prefWidth="243.0" />
+                                <TextField fx:id="descriptionTextField" prefHeight="27.0" prefWidth="243.0" />
                                 <Label styleClass="info" text="ex. &quot;Starbucks Paycheck&quot;" />
                             </children>
                         </VBox>
@@ -41,7 +41,7 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <DatePicker />
+                  <DatePicker fx:id="datePicker" />
                </children>
                <padding>
                   <Insets top="30.0" />
@@ -60,7 +60,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="124.0">
                             <children>
                                 <Label prefHeight="17.0" prefWidth="54.0" text="\$" />
-                                <TextField alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="256.0" promptText="999.99" />
+                                <TextField fx:id="totalTextField" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="256.0" promptText="999.99" />
                             </children>
                             <padding>
                                 <Insets right="10.0" />
@@ -81,7 +81,7 @@
                                 <Insets />
                             </HBox.margin>
                         </Label>
-                        <ChoiceBox prefHeight="27.0" prefWidth="206.0" />
+                        <ChoiceBox fx:id="accountsChoiceBox" prefHeight="27.0" prefWidth="206.0" />
                     </children>
                     <VBox.margin>
                         <Insets left="65.0" />
@@ -92,7 +92,7 @@
         <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="185.0">
             <children>
                 <Button onAction="#closeWindow" mnemonicParsing="false" text="Cancel" />
-                <Button mnemonicParsing="false" text="Add Income" />
+                <Button onAction="#addIncome" mnemonicParsing="false" text="Add Income" />
             </children>
         </HBox>
     </children>

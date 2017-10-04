@@ -1,6 +1,7 @@
 package edu.umuc.yourbudget.controllers;
 
 import edu.umuc.yourbudget.database.BankAccountRetriever;
+import edu.umuc.yourbudget.database.BankAccountUpdater;
 import edu.umuc.yourbudget.database.TransactionCreator;
 import edu.umuc.yourbudget.model.*;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class AddExpenseController {
 
     private User user;
+    private HomeController parent;
     private ArrayList<Account> accounts;
 
     @FXML private TextField descriptionTextField;
@@ -26,9 +28,9 @@ public class AddExpenseController {
     @FXML private ChoiceBox<String> categoryChoiceBox;
 
 
-    public void initialize(User user) {
+    public void initialize(User user, HomeController parent) {
         this.user = user;
-        getUserAccounts();
+        this.parent = parent;
         populateAccountChoiceBox();
         populateCategoryChoiceBox();
     }
@@ -39,6 +41,9 @@ public class AddExpenseController {
     }
 
     private void populateAccountChoiceBox() {
+
+        getUserAccounts();
+
         if (accounts.size() > 0) {
             accountsChoiceBox.getItems().addAll(accounts);
             accountsChoiceBox.setValue(accounts.get(0));
@@ -78,6 +83,15 @@ public class AddExpenseController {
                             Double.parseDouble(totalTextField.getText()),
                             categoryChoiceBox.getValue()
                     );
+
+                    BankAccountUpdater updater = new BankAccountUpdater();
+                    updater.updateAccountWithExpense(
+                            Double.parseDouble(totalTextField.getText()),
+                            accountsChoiceBox.getValue().getId()
+                    );
+
+                    parent.updateUI();
+
                     closeWindow(event);
 
                 } else {

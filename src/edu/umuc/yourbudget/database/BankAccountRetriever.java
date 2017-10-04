@@ -26,7 +26,7 @@ public class BankAccountRetriever {
 
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, String.valueOf(userId));
+            preparedStatement.setInt(1, userId);
             resultSet = preparedStatement.executeQuery();
             ArrayList<Account> accounts = new ArrayList<>();
             while (resultSet.next()) {
@@ -42,6 +42,51 @@ public class BankAccountRetriever {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    public double getTotalCheckingBalance(int userId) {
+        return getTotalAccountBalance(userId, "checking");
+    }
+
+    public double getTotalSavingsBalance(int userId) {
+        return getTotalAccountBalance(userId, "savings");
+    }
+
+    private double getTotalAccountBalance(int userId, String accountType) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String query = "SELECT TOTAL(balance) FROM account WHERE type = ? AND user_id = ?;";
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, accountType);
+            preparedStatement.setInt(2, userId);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         } finally {
             if (preparedStatement != null) {
                 try {

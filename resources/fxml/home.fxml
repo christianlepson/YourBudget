@@ -4,17 +4,19 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:controller="edu.umuc.yourbudget.controllers.HomeController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="920.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="920.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.umuc.yourbudget.controllers.HomeController">
    <children>
       <HBox>
          <children>
             <Label fx:id="loginStatusLabel" styleClass="title" text="Logged in as Emily." />
             <Region opacity="0.0" HBox.hgrow="ALWAYS" />
-            <Button onAction="#signOut" alignment="CENTER" mnemonicParsing="false" text="Sign Out" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#signOut" text="Sign Out" />
          </children>
          <padding>
             <Insets left="20.0" right="20.0" />
@@ -25,8 +27,8 @@
       </HBox>
       <VBox spacing="5.0">
          <children>
-            <Label styleClass="checking-label" text="Current Checking Balance: $1,500.00" />
-            <Label styleClass="savings-label" text="Current Savings Balance: $0.00" />
+            <Label fx:id="checkingLabel" styleClass="checking-label" text="Current Checking Balance: $1,500.00" />
+            <Label fx:id="savingsLabel" styleClass="savings-label" text="Current Savings Balance: $0.00" />
          </children>
          <padding>
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
@@ -37,15 +39,22 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
          <content>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <TableView fx:id="transactionsTable" prefHeight="315.0" prefWidth="862.0">
+               <columns>
+                  <TableColumn fx:id="descCol" editable="false" prefWidth="433.0" text="Description" />
+                  <TableColumn fx:id="dateCol" editable="false" prefWidth="138.0" text="Date" />
+                  <TableColumn fx:id="catCol" editable="false" prefWidth="152.0" text="Category" />
+                  <TableColumn fx:id="totalCol" editable="false" minWidth="0.0" prefWidth="102.0" text="Total" />
+                  <TableColumn prefWidth="36.0" resizable="false" />
+               </columns></TableView>
          </content>
       </ScrollPane>
       <HBox alignment="CENTER" prefHeight="100.0" spacing="80.0">
          <children>
-            <Button onAction="#showAddExpenseScene" mnemonicParsing="false" text="Add an Expense" />
-            <Button onAction="#showAddIncomeScene" mnemonicParsing="false" text="Add Income" />
-            <Button onAction="#showAddBankAccountScene" mnemonicParsing="false" text="Add a Bank Account" />
-            <Button onAction="#showReportScene" mnemonicParsing="false" text="View Spending Report" />
+            <Button mnemonicParsing="false" onAction="#showAddExpenseScene" text="Add an Expense" />
+            <Button mnemonicParsing="false" onAction="#showAddIncomeScene" text="Add Income" />
+            <Button mnemonicParsing="false" onAction="#showAddBankAccountScene" text="Add a Bank Account" />
+            <Button mnemonicParsing="false" onAction="#showReportScene" text="View Spending Report" />
          </children>
       </HBox>
    </children>
