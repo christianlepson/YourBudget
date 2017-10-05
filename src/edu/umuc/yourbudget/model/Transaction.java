@@ -1,7 +1,6 @@
 package edu.umuc.yourbudget.model;
 
 import java.sql.Date;
-import java.text.NumberFormat;
 
 public class Transaction {
 

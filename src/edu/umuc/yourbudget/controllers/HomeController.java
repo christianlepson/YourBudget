@@ -14,10 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ScrollEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -45,7 +43,7 @@ public class HomeController {
     @FXML
     private TableColumn<Transaction, String> catCol;
     @FXML
-    private TableColumn<Transaction, String> totalCol;
+    private TableColumn<Transaction, Double> totalCol;
 
     private User user;
     private ObservableList<Transaction> transactions;
@@ -106,14 +104,23 @@ public class HomeController {
             transactions = FXCollections.observableArrayList();
             setRowFactory();
             transactions.addAll(transactionsArrayList);
-            for (Transaction t : transactions) {
-                System.out.println(t.getDescription());
-            }
             typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
             descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
             catCol.setCellValueFactory(new PropertyValueFactory<>("category"));
             totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
+            totalCol.setCellFactory(column -> new TableCell<Transaction, Double>() {
+                @Override
+                protected void updateItem(Double item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item != null) {
+                        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+                        String moneyString = formatter.format(item);
+                        setText(moneyString);
+                    }
+
+                }
+            });
             transactionsTable.setItems(transactions);
             dateCol.setSortType(TableColumn.SortType.ASCENDING);
             transactionsTable.getSortOrder().add(dateCol);
@@ -127,13 +134,13 @@ public class HomeController {
             protected void updateItem(Transaction item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null)
-
                     if (item.getType().equals("Income")) {
+                        this.getStyleClass().clear();
                         this.getStyleClass().add("income-row");
-                    } else {
+                    } else if (item.getType().equals("Expense")) {
+                        this.getStyleClass().clear();
                         this.getStyleClass().add("expense-row");
                     }
-
             }
         });
     }

@@ -55,6 +55,12 @@
   -fx-table-cell-border-color: transparent;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: #68C3E2;
+    -fx-text-fill: #000;
+    -fx-table-cell-border-color: transparent;
+}
+
 .income-row {
     -fx-background-color: #9CFFC6;
 }
