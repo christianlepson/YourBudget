@@ -135,10 +135,10 @@ public class HomeController {
                 super.updateItem(item, empty);
                 if (item != null)
                     if (item.getType().equals("Income")) {
-                        this.getStyleClass().clear();
+                        this.getStyleClass().removeAll("expense-row", "income-row");
                         this.getStyleClass().add("income-row");
                     } else if (item.getType().equals("Expense")) {
-                        this.getStyleClass().clear();
+                        this.getStyleClass().removeAll("income-row", "expense-row");
                         this.getStyleClass().add("expense-row");
                     }
             }

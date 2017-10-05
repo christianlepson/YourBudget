@@ -85,7 +85,7 @@ public class Transaction {
     }
 
     public void setType(String category) {
-        if (category.equals("income")) {
+        if (category.equals("Income") || category.equals("income")) {
             type = "Income";
         } else {
             type = "Expense";
