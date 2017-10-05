@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class BankAccountUpdater {
 
-    private Connection connection;
+    private final Connection connection;
 
     public BankAccountUpdater() {
         connection = SQLiteConnection.connect();

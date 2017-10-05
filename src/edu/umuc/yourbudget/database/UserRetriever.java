@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class UserRetriever {
 
-    private Connection connection;
+    private final Connection connection;
 
     public UserRetriever() {
         connection = SQLiteConnection.connect();
@@ -35,8 +35,7 @@ public class UserRetriever {
                 String firstName = resultSet.getString("first_name");
                 String username = resultSet.getString("username");
                 int id = resultSet.getInt("id");
-                User usr = new User(firstName, username, id);
-                return usr;
+                return new User(firstName, username, id);
             } else {
                 return null;
             }
@@ -76,8 +75,7 @@ public class UserRetriever {
                 String firstName = resultSet.getString("first_name");
                 String username = resultSet.getString("username");
                 int id = resultSet.getInt("id");
-                User usr = new User(firstName, username, id);
-                return usr;
+                return new User(firstName, username, id);
             } else {
                 return null;
             }

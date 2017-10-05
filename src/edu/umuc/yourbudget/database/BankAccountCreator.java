@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public class BankAccountCreator {
 
-    private Connection connection;
+    private final Connection connection;
 
     public BankAccountCreator() {
         connection = SQLiteConnection.connect();

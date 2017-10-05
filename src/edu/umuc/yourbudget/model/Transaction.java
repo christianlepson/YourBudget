@@ -11,8 +11,8 @@ public class Transaction {
     private String description;
     private Date date;
     private double total;
-    private String formattedTotal;
     private String category;
+    private String type;
 
     public Transaction(int id, int accountId, int userId, String description, Date date, double total, String category) {
         this.id = id;
@@ -22,7 +22,7 @@ public class Transaction {
         this.date = date;
         this.total = total;
         this.category = category;
-        setFormattedTotal(total);
+        setType(category);
     }
 
     public int getId() {
@@ -69,23 +69,6 @@ public class Transaction {
         return total;
     }
 
-    public String getFormattedTotal() {
-        return formattedTotal;
-    }
-
-    public void setFormattedTotal(double total) {
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        String currency = formatter.format(total);
-        String formatTotal = "";
-        if (category.equals("income")) {
-            formatTotal += "+ ";
-        } else {
-            formatTotal += "- ";
-        }
-        formatTotal += currency;
-        formattedTotal = formatTotal;
-    }
-
     public void setTotal(double total) {
         this.total = total;
     }
@@ -96,5 +79,17 @@ public class Transaction {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String category) {
+        if (category.equals("income")) {
+            type = "Income";
+        } else {
+            type = "Expense";
+        }
     }
 }

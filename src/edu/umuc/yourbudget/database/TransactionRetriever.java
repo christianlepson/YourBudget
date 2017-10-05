@@ -1,16 +1,13 @@
 package edu.umuc.yourbudget.database;
 
 import edu.umuc.yourbudget.model.Transaction;
-import edu.umuc.yourbudget.model.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class TransactionRetriever {
 
-    private Connection connection;
+    private final Connection connection;
 
     public TransactionRetriever() {
         connection = SQLiteConnection.connect();

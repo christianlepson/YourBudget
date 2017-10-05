@@ -6,13 +6,12 @@ import java.sql.DriverManager;
 /**
  * Created by Christian on 9/22/17.
  */
-public class SQLiteConnection {
+class SQLiteConnection {
 
     public static Connection connect() {
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:YourBudget.sqlite");
-            return conn;
+            return DriverManager.getConnection("jdbc:sqlite:YourBudget.sqlite");
         } catch (Exception e) {
             System.out.println("Unable to connect to database.");
             System.out.println(e);

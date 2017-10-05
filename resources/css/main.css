@@ -50,3 +50,15 @@
 .savings-label {
     -fx-text-fill: #1e9241;
 }
+
+.table-view {
+  -fx-table-cell-border-color: transparent;
+}
+
+.income-row {
+    -fx-background-color: #9CFFC6;
+}
+
+.expense-row {
+    -fx-background-color: #FDC0B6;
+}

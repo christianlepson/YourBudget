@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class BankAccountRetriever {
 
-    private Connection connection;
+    private final Connection connection;
 
     public BankAccountRetriever() {
         connection = SQLiteConnection.connect();

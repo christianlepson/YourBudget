@@ -12,12 +12,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -28,16 +28,27 @@ import java.util.ArrayList;
  * Created by Christian on 9/30/17.
  */
 public class HomeController {
-    @FXML private Label loginStatusLabel;
-    @FXML private Label checkingLabel;
-    @FXML private Label savingsLabel;
-    @FXML private TableView<Transaction> transactionsTable;
-    @FXML private TableColumn<Transaction, String> descCol;
-    @FXML private TableColumn<Transaction, Date> dateCol;
-    @FXML private TableColumn<Transaction, String> catCol;
-    @FXML private TableColumn<Transaction, String> totalCol;
+    @FXML
+    private Label loginStatusLabel;
+    @FXML
+    private Label checkingLabel;
+    @FXML
+    private Label savingsLabel;
+    @FXML
+    private TableView<Transaction> transactionsTable;
+    @FXML
+    private TableColumn<Transaction, String> typeCol;
+    @FXML
+    private TableColumn<Transaction, String> descCol;
+    @FXML
+    private TableColumn<Transaction, Date> dateCol;
+    @FXML
+    private TableColumn<Transaction, String> catCol;
+    @FXML
+    private TableColumn<Transaction, String> totalCol;
 
     private User user;
+    private ObservableList<Transaction> transactions;
 
     public void initialize(User user) {
         this.user = user;
@@ -91,13 +102,18 @@ public class HomeController {
     private void populateTransactionsTable() {
         TransactionRetriever retriever = new TransactionRetriever();
         ArrayList<Transaction> transactionsArrayList = retriever.retrieveByUserId(user.getId());
-        if (transactionsArrayList.size() > 0 ) {
-            ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+        if (transactionsArrayList.size() > 0) {
+            transactions = FXCollections.observableArrayList();
+            setRowFactory();
             transactions.addAll(transactionsArrayList);
+            for (Transaction t : transactions) {
+                System.out.println(t.getDescription());
+            }
+            typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
             descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
             catCol.setCellValueFactory(new PropertyValueFactory<>("category"));
-            totalCol.setCellValueFactory(new PropertyValueFactory<>("formattedTotal"));
+            totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
             transactionsTable.setItems(transactions);
             dateCol.setSortType(TableColumn.SortType.ASCENDING);
             transactionsTable.getSortOrder().add(dateCol);
@@ -105,9 +121,35 @@ public class HomeController {
         }
     }
 
+    private void setRowFactory() {
+        transactionsTable.setRowFactory(param -> new TableRow<Transaction>() {
+            @Override
+            protected void updateItem(Transaction item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null)
+
+                    if (item.getType().equals("Income")) {
+                        this.getStyleClass().add("income-row");
+                    } else {
+                        this.getStyleClass().add("expense-row");
+                    }
+
+            }
+        });
+    }
+
     @FXML
     private void signOut(ActionEvent event) {
-        showScene(event, "/fxml/welcome.fxml");
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/fxml/welcome.fxml"));
+            Scene scene = new Scene(parent);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } catch (Exception e) {
+            System.out.println("Unable to open scene from Home.");
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -196,17 +238,5 @@ public class HomeController {
 //            e.printStackTrace();
     }
 
-    private void showScene(ActionEvent event, String scenePath) {
-        try {
-            Parent parent = FXMLLoader.load(getClass().getResource(scenePath));
-            Scene scene = new Scene(parent);
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.setScene(scene);
-            appStage.show();
-        } catch (Exception e) {
-            System.out.println("Unable to open scene from Home.");
-            e.printStackTrace();
-        }
-    }
 
 }

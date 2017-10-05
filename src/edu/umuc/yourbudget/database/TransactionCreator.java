@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class TransactionCreator {
 
-    private Connection connection;
+    private final Connection connection;
 
     public TransactionCreator() {
         connection = SQLiteConnection.connect();
@@ -17,11 +17,10 @@ public class TransactionCreator {
     }
 
     public boolean createIncome(int accountId, int userId, String description, Date date, double total) {
-        return create(accountId, userId, description, date, total, "income");
+        return create(accountId, userId, description, date, total, "Income");
     }
 
     public boolean createExpense(int accountId, int userId, String description, Date date, double total, String category) {
-        category = category.toLowerCase();
         return create(accountId, userId, description, date, total, category);
     }
 
@@ -52,10 +51,6 @@ public class TransactionCreator {
             }
             return isSuccessful;
         }
-    }
-
-    private String formatFirstName(String firstName) {
-        return firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
     }
 
 }

@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class UserCreator {
 
-    private Connection connection;
+    private final Connection connection;
 
     public UserCreator() {
         connection = SQLiteConnection.connect();

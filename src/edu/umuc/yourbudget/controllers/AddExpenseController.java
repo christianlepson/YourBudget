@@ -67,46 +67,54 @@ public class AddExpenseController {
 
     @FXML
     private void addExpense(ActionEvent event) {
-        if (InputValidator.isTextValid(descriptionTextField.getText())) {
 
-            if (datePicker.getValue() != null) {
+        if (accountsChoiceBox.getValue() != null) {
 
-                if (InputValidator.isCurrencyValid(totalTextField.getText())) {
-                    Date date = Date.valueOf(datePicker.getValue());
+            if (InputValidator.isTextValid(descriptionTextField.getText())) {
 
-                    TransactionCreator creator = new TransactionCreator();
-                    creator.createExpense(
-                            accountsChoiceBox.getValue().getId(),
-                            user.getId(),
-                            descriptionTextField.getText(),
-                            date,
-                            Double.parseDouble(totalTextField.getText()),
-                            categoryChoiceBox.getValue()
-                    );
+                if (datePicker.getValue() != null) {
 
-                    BankAccountUpdater updater = new BankAccountUpdater();
-                    updater.updateAccountWithExpense(
-                            Double.parseDouble(totalTextField.getText()),
-                            accountsChoiceBox.getValue().getId()
-                    );
+                    if (InputValidator.isCurrencyValid(totalTextField.getText())) {
+                        Date date = Date.valueOf(datePicker.getValue());
 
-                    parent.updateUI();
+                        TransactionCreator creator = new TransactionCreator();
+                        creator.createExpense(
+                                accountsChoiceBox.getValue().getId(),
+                                user.getId(),
+                                descriptionTextField.getText(),
+                                date,
+                                Double.parseDouble(totalTextField.getText()),
+                                categoryChoiceBox.getValue()
+                        );
 
-                    closeWindow(event);
+                        BankAccountUpdater updater = new BankAccountUpdater();
+                        updater.updateAccountWithExpense(
+                                Double.parseDouble(totalTextField.getText()),
+                                accountsChoiceBox.getValue().getId()
+                        );
+
+                        parent.updateUI();
+
+                        closeWindow(event);
+
+                    } else {
+                        ErrorDialog.display("Please enter a valid total." +
+                                "\nex. 999.99");
+                    }
 
                 } else {
-                    ErrorDialog.display("Please enter a valid total." +
-                            "\nex. 999.99");
+                    ErrorDialog.display("Please enter the date of the transaction.");
                 }
 
             } else {
-                ErrorDialog.display("Please enter the date of the transaction.");
+                ErrorDialog.display("Please enter a valid description." +
+                        "\nDescriptions cannot be blank or longer than 120 characters.");
             }
 
         } else {
-            ErrorDialog.display("Please enter a valid description." +
-                    "\nDescriptions cannot be blank or longer than 120 characters.");
+            ErrorDialog.display("You must add a bank account before you can add expenses.");
         }
+
     }
 
 }
