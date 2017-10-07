@@ -1,7 +1,9 @@
 package edu.umuc.yourbudget.controllers;
 
 import edu.umuc.yourbudget.database.BankAccountRetriever;
+import edu.umuc.yourbudget.database.BankAccountUpdater;
 import edu.umuc.yourbudget.database.TransactionRetriever;
+import edu.umuc.yourbudget.database.TransactionUpdater;
 import edu.umuc.yourbudget.model.Transaction;
 import edu.umuc.yourbudget.model.User;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -171,11 +173,26 @@ public class HomeController {
             });
 
             deleteButton.setOnAction(event -> {
-                System.out.println("delete button pressed.");
+                deleteTransaction(cell.getItem());
             });
 
             return cell ;
         });
+    }
+
+    private void deleteTransaction(Transaction item) {
+        TransactionUpdater deleter = new TransactionUpdater();
+        deleter.deleteTransaction(item.getId());
+
+        BankAccountUpdater bankAccountUpdater = new BankAccountUpdater();
+        if (item.getType().equalsIgnoreCase("expense")) {
+            bankAccountUpdater.updateAccountWithIncome(item.getTotal(), item.getAccountId());
+        } else {
+            bankAccountUpdater.updateAccountWithExpense(item.getTotal(), item.getAccountId());
+        }
+        transactions.remove(item);
+        transactionsTable.refresh();
+        setAccountBalanceLabels();
     }
 
     private void setRowFactory() {
