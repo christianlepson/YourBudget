@@ -61,6 +61,15 @@
     -fx-table-cell-border-color: transparent;
 }
 
+.table-view .button {
+    -fx-background-color: transparent;
+    -fx-width: 20;
+    -fx-height: 20;
+    -fx-padding: 0 0 0 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+}
+
 .income-row {
     -fx-background-color: #9CFFC6;
 }

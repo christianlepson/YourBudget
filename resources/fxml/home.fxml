@@ -40,7 +40,7 @@
             <TableColumn fx:id="dateCol" editable="false" prefWidth="117.0" text="Date" />
             <TableColumn fx:id="catCol" editable="false" prefWidth="145.0" text="Category" />
             <TableColumn fx:id="totalCol" editable="false" minWidth="0.0" prefWidth="108.0" text="Total" />
-            <TableColumn prefWidth="87.0" resizable="false" />
+            <TableColumn fx:id="editCol" prefWidth="87.0" resizable="false" sortable="false" />
          </columns>
       </TableView>
       <HBox alignment="CENTER" spacing="80.0">

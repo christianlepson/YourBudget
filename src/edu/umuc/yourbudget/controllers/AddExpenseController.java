@@ -41,15 +41,11 @@ public class AddExpenseController {
     }
 
     private void populateAccountChoiceBox() {
-
         getUserAccounts();
 
         if (accounts.size() > 0) {
             accountsChoiceBox.getItems().addAll(accounts);
             accountsChoiceBox.setValue(accounts.get(0));
-        } else {
-            // display no accounts error
-            System.out.println("fail");
         }
     }
 

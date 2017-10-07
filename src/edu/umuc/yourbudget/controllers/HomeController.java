@@ -4,6 +4,7 @@ import edu.umuc.yourbudget.database.BankAccountRetriever;
 import edu.umuc.yourbudget.database.TransactionRetriever;
 import edu.umuc.yourbudget.model.Transaction;
 import edu.umuc.yourbudget.model.User;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,6 +48,8 @@ public class HomeController {
     private TableColumn<Transaction, String> catCol;
     @FXML
     private TableColumn<Transaction, Double> totalCol;
+    @FXML
+    private TableColumn<Transaction, Transaction> editCol;
 
     private User user;
     private ObservableList<Transaction> transactions;
@@ -109,23 +115,67 @@ public class HomeController {
             dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
             catCol.setCellValueFactory(new PropertyValueFactory<>("category"));
             totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
-            totalCol.setCellFactory(column -> new TableCell<Transaction, Double>() {
-                @Override
-                protected void updateItem(Double item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item != null) {
-                        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-                        String moneyString = formatter.format(item);
-                        setText(moneyString);
-                    }
-
-                }
-            });
+            formatTotalCol();
+            setEditColButtons();
             transactionsTable.setItems(transactions);
             dateCol.setSortType(TableColumn.SortType.ASCENDING);
             transactionsTable.getSortOrder().add(dateCol);
             transactionsTable.sort();
         }
+    }
+
+    private void formatTotalCol() {
+        totalCol.setCellFactory(column -> new TableCell<Transaction, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null) {
+                    NumberFormat formatter = NumberFormat.getCurrencyInstance();
+                    String moneyString = formatter.format(item);
+                    setText(moneyString);
+                }
+
+            }
+        });
+    }
+
+    private void setEditColButtons() {
+
+        editCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper(param.getValue()));
+
+        editCol.setCellFactory(col -> {
+            Image editImg = new Image("/images/edit.png");
+            ImageView editImgView = new ImageView(editImg);
+            Button editButton = new Button("", editImgView);
+
+            Image deleteImg = new Image("/images/delete.png");
+            ImageView deleteImgView = new ImageView(deleteImg);
+            Button deleteButton = new Button("", deleteImgView);
+
+            HBox hBox = new HBox(5, editButton, deleteButton);
+
+            TableCell<Transaction, Transaction> cell = new TableCell<Transaction, Transaction>() {
+                @Override
+                public void updateItem(Transaction transaction, boolean empty) {
+                    super.updateItem(transaction, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(hBox);
+                    }
+                }
+            };
+
+            editButton.setOnAction(event -> {
+                showEditTransactionScene(cell.getItem(), user);
+            });
+
+            deleteButton.setOnAction(event -> {
+                System.out.println("delete button pressed.");
+            });
+
+            return cell ;
+        });
     }
 
     private void setRowFactory() {
@@ -155,6 +205,27 @@ public class HomeController {
             appStage.show();
         } catch (Exception e) {
             System.out.println("Unable to open scene from Home.");
+            e.printStackTrace();
+        }
+    }
+
+    private void showEditTransactionScene(Transaction transaction, User user) {
+        Parent parent = null;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/edit_transaction.fxml"));
+            parent = loader.load();
+            Scene scene = new Scene(parent);
+
+            EditTransactionController controller = loader.getController();
+            controller.initialize(transaction, this);
+
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setScene(scene);
+            window.show();
+        } catch (IOException e) {
+            System.out.println("Unable to open Edit Transaction from Home.");
             e.printStackTrace();
         }
     }
@@ -234,7 +305,7 @@ public class HomeController {
 //            parent = loader.load();
 //            Scene scene = new Scene(parent);
 //
-//            ReportController controller = loader.getController();
+//            edu.umuc.yourbudget.controllers.ReportController controller = loader.getController();
 //            controller.initialize(user);
 //
 //            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
