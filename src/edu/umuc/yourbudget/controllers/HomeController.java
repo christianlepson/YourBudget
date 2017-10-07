@@ -38,6 +38,7 @@ public class HomeController {
     private Label checkingLabel;
     @FXML
     private Label savingsLabel;
+
     @FXML
     private TableView<Transaction> transactionsTable;
     @FXML
@@ -333,5 +334,9 @@ public class HomeController {
 //            e.printStackTrace();
     }
 
+
+    public TableView<Transaction> getTransactionsTable() {
+        return transactionsTable;
+    }
 
 }

@@ -148,7 +148,8 @@ public class EditTransactionController {
 
                         }
 
-                        parent.updateUI();
+                        parent.getTransactionsTable().refresh();
+                        parent.getTransactionsTable().sort();
 
                         closeWindow(event);
 
