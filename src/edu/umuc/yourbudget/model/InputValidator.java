@@ -29,8 +29,12 @@ public class InputValidator {
     public static boolean isCurrencyValid(String balanceString) {
         try {
             balanceString = balanceString.replaceAll(",", "");
-            Double.parseDouble(balanceString);
-            return true;
+            double amount = Double.parseDouble(balanceString);
+            if (amount > 0) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }

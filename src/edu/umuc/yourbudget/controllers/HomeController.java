@@ -177,7 +177,7 @@ public class HomeController {
                 deleteTransaction(cell.getItem());
             });
 
-            return cell ;
+            return cell;
         });
     }
 
@@ -316,24 +316,24 @@ public class HomeController {
 
     @FXML
     private void showReportScene(ActionEvent event) {
-        //        Parent parent = null;
-//        try {
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getResource("/fxml/report.fxml"));
-//            parent = loader.load();
-//            Scene scene = new Scene(parent);
-//
-//            edu.umuc.yourbudget.controllers.ReportController controller = loader.getController();
-//            controller.initialize(user);
-//
-//            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            appStage.setScene(scene);
-//            appStage.show();
-//        } catch (IOException e) {
-//            System.out.println("Unable to open Report scene from Home.");
-//            e.printStackTrace();
-    }
+        Parent parent = null;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/report.fxml"));
+            parent = loader.load();
+            Scene scene = new Scene(parent);
 
+            ReportController controller = loader.getController();
+            controller.initialize(user);
+
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } catch (IOException e) {
+            System.out.println("Unable to open Report scene from Home.");
+            e.printStackTrace();
+        }
+    }
 
     public TableView<Transaction> getTransactionsTable() {
         return transactionsTable;

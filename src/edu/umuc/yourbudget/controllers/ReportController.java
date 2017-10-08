@@ -1,59 +1,130 @@
 package edu.umuc.yourbudget.controllers;
 
-import javafx.scene.Scene;
+import edu.umuc.yourbudget.database.BankAccountRetriever;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
 import edu.umuc.yourbudget.model.User;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.chart.*;
-import javafx.scene.Group;
+
+import java.io.IOException;
+import java.sql.Date;
 
 //Created by Bryan 10/05/17
 
 
 public class ReportController {
     private User user;
-    private HomeController parent;
 
-    public void initialize(User user, HomeController parent) {
+    private double totalExpend;
+    private double housingExpend;
+    private double groceryExpend;
+    private double carExpend;
+    private double gasExpend;
+    private double eatingExpend;
+    private double entertainExpend;
+    private double clothingExpend;
+    private double beautyExpend;
+    private double otherExpend;
+
+    private ObservableList<PieChart.Data> pieChartData;
+    @FXML
+    private PieChart pieChart;
+
+    public void initialize(User user) {
         this.user = user;
-        this.parent = parent;
+        setExpenditures();
+        setPieChartData();
+        pieChart.setData(pieChartData);
+        pieChart.setStartAngle(45);
     }
 
-    public void start(Stage stage) {
-        Scene scene = new Scene(new Group());
-        stage.setTitle("Report");
-        stage.setWidth(500);
-        stage.setHeight(500);
-
-        //Example of values
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Housing/Utilities", 20),
-                        new PieChart.Data("Grocery", 10),
-                        new PieChart.Data("Car Payment/Insurance", 5),
-                        new PieChart.Data("Gas", 10),
-                        new PieChart.Data("Eating Out", 5),
-                        new PieChart.Data("Entertainment", 10),
-                        new PieChart.Data("Clothing", 10),
-                        new PieChart.Data("Beauty", 10),
-                        new PieChart.Data("Other", 20));
-
-        final PieChart chart = new PieChart(pieChartData);
-
-        chart.setTitle("Report");
-
-        ((Group) scene.getRoot()).getChildren().add(chart);
-        stage.setScene(scene);
-        stage.show();
+    private void setExpenditures() {
+        int time = 1450879900;
+        Date date = new Date(time);
+        BankAccountRetriever retriever = new BankAccountRetriever();
+        totalExpend = retriever.getTotalUserExpenditures(user.getId(), date);
+        System.out.println(totalExpend);
+        housingExpend = retriever.getExpendituresByCategory(user.getId(), "Housing/Utilities", date);
+        groceryExpend = retriever.getExpendituresByCategory(user.getId(), "Grocery", date);
+        carExpend = retriever.getExpendituresByCategory(user.getId(), "Car Payment/Insurance", date);
+        System.out.println(carExpend);
+        gasExpend = retriever.getExpendituresByCategory(user.getId(), "Gas", date);
+        eatingExpend = retriever.getExpendituresByCategory(user.getId(), "Eating Out", date);
+        entertainExpend = retriever.getExpendituresByCategory(user.getId(), "Entertainment", date);
+        clothingExpend = retriever.getExpendituresByCategory(user.getId(), "Clothing", date);
+        beautyExpend = retriever.getExpendituresByCategory(user.getId(), "Beauty", date);
+        otherExpend = retriever.getExpendituresByCategory(user.getId(), "Other", date);
     }
 
-    public double getPercent(double expense, double income) {
-        double percent = 0;
-        percent = Math.round(expense / income * 100);
-        return percent;
+    private void setPieChartData() {
+        pieChartData = FXCollections.observableArrayList();
+        addDataToPieChart("Housing/Utilities", getPercent(housingExpend));
+        addDataToPieChart("Grocery", getPercent(groceryExpend));
+        addDataToPieChart("Car Payment/Insurance", getPercent(carExpend));
+        addDataToPieChart("Gas", getPercent(gasExpend));
+        addDataToPieChart("Eating Out", getPercent(eatingExpend));
+        addDataToPieChart("Entertainment", getPercent(entertainExpend));
+        addDataToPieChart("Clothing", getPercent(clothingExpend));
+        addDataToPieChart("Beauty", getPercent(beautyExpend));
+        addDataToPieChart("Other", getPercent(otherExpend));
+    }
+
+    private double getPercent(double expense) {
+        return Math.round(expense / totalExpend * 100);
+    }
+
+    private void addDataToPieChart(String category, double expense) {
+        if (getPercent(expense) != 0) {
+            PieChart.Data data = new PieChart.Data(category, expense);
+            data.nameProperty().bind(
+                    Bindings.concat(
+                            data.getName(), " (", data.pieValueProperty(), "%)"
+                    )
+            );
+            pieChartData.add(data);
+        }
+    }
+
+    @FXML
+    private void signOut(ActionEvent event) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/fxml/welcome.fxml"));
+            Scene scene = new Scene(parent);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } catch (Exception e) {
+            System.out.println("Unable to open scene from Home.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showHomeScene(ActionEvent event) {
+        Parent parent = null;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/home.fxml"));
+            parent = loader.load();
+            Scene scene = new Scene(parent);
+
+            HomeController controller = loader.getController();
+            controller.initialize(user);
+
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } catch (IOException e) {
+            System.out.println("Unable to open Report scene from Home.");
+            e.printStackTrace();
+        }
     }
 
 

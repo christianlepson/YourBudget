@@ -2,10 +2,7 @@ package edu.umuc.yourbudget.database;
 
 import edu.umuc.yourbudget.model.Account;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class BankAccountRetriever {
@@ -78,6 +75,80 @@ public class BankAccountRetriever {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, accountType);
             preparedStatement.setInt(2, userId);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    public double getTotalUserExpenditures(int userId, Date date) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String query = "SELECT TOTAL(total) FROM transactions WHERE user_id = ? AND date > ? AND UPPER(category) != UPPER('income');";
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setDate(2, date);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public double getExpendituresByCategory(int userId, String category, Date date) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String query = "SELECT TOTAL(total) FROM transactions WHERE user_id = ? AND date > ? AND UPPER(category) = UPPER(?);";
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setDate(2, date);
+            preparedStatement.setString(3, category);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getDouble(1);
