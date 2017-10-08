@@ -137,12 +137,15 @@ public class EditTransactionController {
                         }
 
                         if (!accountChanged && totalDifference != 0) {
+                            System.out.println(initialTotal + " new: " + newTotal + " diff: " + totalDifference);
                             BankAccountUpdater bankAccountUpdater = new BankAccountUpdater();
                             String type = transaction.getType();
 
                             if (type.equalsIgnoreCase("expense")) {
+                                System.out.println("submitted expense");
                                 bankAccountUpdater.updateAccountWithExpense(totalDifference, transaction.getAccountId());
                             } else {
+                                System.out.println("submitted income");
                                 bankAccountUpdater.updateAccountWithIncome(totalDifference, transaction.getAccountId());
                             }
 
@@ -150,6 +153,7 @@ public class EditTransactionController {
 
                         parent.getTransactionsTable().refresh();
                         parent.getTransactionsTable().sort();
+                        parent.setAccountBalanceLabels();
 
                         closeWindow(event);
 

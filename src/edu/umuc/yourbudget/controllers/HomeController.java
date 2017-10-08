@@ -59,6 +59,7 @@ public class HomeController {
 
     public void initialize(User user) {
         this.user = user;
+        transactionsTable.setPlaceholder(new Label("Add a transaction to get started."));
         updateUI();
     }
 
@@ -68,7 +69,7 @@ public class HomeController {
         populateTransactionsTable();
     }
 
-    private void setAccountBalanceLabels() {
+    public void setAccountBalanceLabels() {
         BankAccountRetriever retriever = new BankAccountRetriever();
         double checkingBalance = retriever.getTotalCheckingBalance(user.getId());
         double savingsBalance = retriever.getTotalSavingsBalance(user.getId());
