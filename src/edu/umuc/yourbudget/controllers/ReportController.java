@@ -54,11 +54,9 @@ public class ReportController {
         Date date = new Date(time);
         BankAccountRetriever retriever = new BankAccountRetriever();
         totalExpend = retriever.getTotalUserExpenditures(user.getId(), date);
-        System.out.println(totalExpend);
         housingExpend = retriever.getExpendituresByCategory(user.getId(), "Housing/Utilities", date);
         groceryExpend = retriever.getExpendituresByCategory(user.getId(), "Grocery", date);
         carExpend = retriever.getExpendituresByCategory(user.getId(), "Car Payment/Insurance", date);
-        System.out.println(carExpend);
         gasExpend = retriever.getExpendituresByCategory(user.getId(), "Gas", date);
         eatingExpend = retriever.getExpendituresByCategory(user.getId(), "Eating Out", date);
         entertainExpend = retriever.getExpendituresByCategory(user.getId(), "Entertainment", date);
@@ -81,12 +79,13 @@ public class ReportController {
     }
 
     private double getPercent(double expense) {
+        System.out.println(Math.round(expense / totalExpend * 100));
         return Math.round(expense / totalExpend * 100);
     }
 
-    private void addDataToPieChart(String category, double expense) {
-        if (getPercent(expense) != 0) {
-            PieChart.Data data = new PieChart.Data(category, expense);
+    private void addDataToPieChart(String category, double percent) {
+        if (percent > 0) {
+            PieChart.Data data = new PieChart.Data(category, percent);
             data.nameProperty().bind(
                     Bindings.concat(
                             data.getName(), " (", data.pieValueProperty(), "%)"
