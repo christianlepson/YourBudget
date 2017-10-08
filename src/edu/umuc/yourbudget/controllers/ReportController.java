@@ -79,7 +79,6 @@ public class ReportController {
     }
 
     private double getPercent(double expense) {
-        System.out.println(Math.round(expense / totalExpend * 100));
         return Math.round(expense / totalExpend * 100);
     }
 
