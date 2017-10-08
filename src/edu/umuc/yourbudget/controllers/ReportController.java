@@ -10,6 +10,7 @@ import edu.umuc.yourbudget.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.chart.*;
 
@@ -36,9 +37,12 @@ public class ReportController {
     private ObservableList<PieChart.Data> pieChartData;
     @FXML
     private PieChart pieChart;
+    @FXML
+    private Label loginStatusLabel;
 
     public void initialize(User user) {
         this.user = user;
+        loginStatusLabel.setText("Logged in as " + user.getFirstName() + ".");
         setExpenditures();
         setPieChartData();
         pieChart.setData(pieChartData);
