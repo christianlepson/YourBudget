@@ -79,7 +79,9 @@ public class ReportController {
     }
 
     private double getPercent(double expense) {
-        return Math.round(expense / totalExpend * 100);
+        int scale = (int) Math.pow(10, 1);
+        double value = expense / totalExpend * 100;
+        return (double) Math.round(value * scale) / scale;
     }
 
     private void addDataToPieChart(String category, double percent) {
