@@ -19,7 +19,6 @@ import java.sql.Date;
 
 //Created by Bryan 10/05/17
 
-
 public class ReportController {
     private User user;
 
